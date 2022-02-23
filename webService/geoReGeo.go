@@ -8,13 +8,13 @@ import (
 
 type geoService struct {
 	sling *sling.Sling
-	Key   string
+	key   string
 }
 
 func newGeoService(sling *sling.Sling, key string) *geoService {
 	return &geoService{
 		sling: sling.Path("geocode/geo"),
-		Key:   key,
+		key:   key,
 	}
 }
 
@@ -60,9 +60,9 @@ func (s *geoService) Get(addr string, param *GeoParam) (*GeoCode, *http.Response
 
 func (s *geoService) BatchGet(addr []string, param *GeoParam) ([]*GeoCode, *http.Response, error) {
 	if param == nil {
-		param = &GeoParam{Key: s.Key}
+		param = &GeoParam{Key: s.key}
 	} else {
-		param.Key = s.Key
+		param.Key = s.key
 	}
 	if len(addr) > 1 {
 		param.Batch = true
@@ -86,13 +86,13 @@ func (s *geoService) BatchGet(addr []string, param *GeoParam) ([]*GeoCode, *http
 
 type reGeoService struct {
 	sling *sling.Sling
-	Key   string
+	key   string
 }
 
 func newReGeoService(sling *sling.Sling, key string) *reGeoService {
 	return &reGeoService{
 		sling: sling.Path("geocode/regeo"),
-		Key:   key,
+		key:   key,
 	}
 }
 
@@ -198,9 +198,9 @@ func (s *reGeoService) Get(location string, param *ReGeoParam) (*ReGeoCode, *htt
 
 func (s *reGeoService) BatchGet(location []string, param *ReGeoParam) ([]*ReGeoCode, *http.Response, error) {
 	if param == nil {
-		param = &ReGeoParam{Key: s.Key}
+		param = &ReGeoParam{Key: s.key}
 	} else {
-		param.Key = s.Key
+		param.Key = s.key
 	}
 	param.Batch = true
 	if len(location) > 0 {
