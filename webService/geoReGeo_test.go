@@ -29,7 +29,7 @@ func TestGeo(t *testing.T) {
 
 func TestReGeo(t *testing.T) {
 	client := NewClient(http.DefaultClient, "")
-	get, _, err := client.Regeo.BatchGet([]string{"116.481488,39.990464"}, nil)
+	get, _, err := client.ReGeo.BatchGet([]string{"116.481488,39.990464"}, nil)
 	if err != nil {
 		t.Error(err)
 		return
@@ -39,7 +39,7 @@ func TestReGeo(t *testing.T) {
 		}
 	}
 
-	code, _, err := client.Regeo.Get("116.481488,39.990464", nil)
+	code, _, err := client.ReGeo.Get("116.481488,39.990464", nil)
 	if err != nil {
 		t.Error(err)
 		return

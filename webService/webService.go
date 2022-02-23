@@ -10,7 +10,7 @@ const amapApi = "https://restapi.amap.com/v3/"
 type Client struct {
 	sling *sling.Sling
 	Geo   *geoService   //地理编码
-	Regeo *reGeoService //逆地理编码
+	ReGeo *reGeoService //逆地理编码
 }
 
 func NewClient(httpClient *http.Client, key string) *Client {
@@ -18,6 +18,6 @@ func NewClient(httpClient *http.Client, key string) *Client {
 	return &Client{
 		sling: base,
 		Geo:   newGeoService(base.New(), key),
-		Regeo: newReGeoService(base.New(), key),
+		ReGeo: newReGeoService(base.New(), key),
 	}
 }
