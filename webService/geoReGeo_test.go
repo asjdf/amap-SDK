@@ -18,7 +18,7 @@ func TestGeo(t *testing.T) {
 		}
 	}
 
-	code, _, err := client.Geo.Get("北京市朝阳区阜通东大街6号", nil)
+	code, _, err := client.Geo.Get("内蒙古自治区 呼和浩特市 新城区", nil)
 	if err != nil {
 		t.Error(err)
 		return

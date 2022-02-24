@@ -2,6 +2,7 @@ package webService
 
 import (
 	"errors"
+	"github.com/asjdf/amap-SDK/webService/utils"
 	"github.com/dghubble/sling"
 	"net/http"
 )
@@ -43,11 +44,20 @@ type GeoCode struct {
 	CityCode         string `json:"citycode"`
 	City             string `json:"city"`
 	District         string `json:"district"`
-	AdCode           string `json:"adcode"`
-	Street           string `json:"street"`
-	Number           string `json:"number"`
-	Location         string `json:"location"`
-	Level            string `json:"level"`
+	Township         string `json:"township"`
+	Neighborhood     struct {
+		Name string `json:"name"`
+		Type string `json:"type"`
+	} `json:"neighborhood"`
+	Building struct {
+		Name string `json:"name"`
+		Type string `json:"type"`
+	} `json:"building"`
+	AdCode   string `json:"adcode"`
+	Street   string `json:"street"`
+	Number   string `json:"number"`
+	Location string `json:"location"`
+	Level    string `json:"level"`
 }
 
 func (s *geoService) Get(addr string, param *GeoParam) (*GeoCode, *http.Response, error) {
@@ -75,7 +85,7 @@ func (s *geoService) BatchGet(addr []string, param *GeoParam) ([]*GeoCode, *http
 	}
 	geoResp := new(GeoResp)
 	geoResp.Geocodes = make([]*GeoCode, 0)
-	resp, err := s.sling.New().Get("").QueryStruct(param).ReceiveSuccess(geoResp)
+	resp, err := s.sling.New().Get("").QueryStruct(param).ReceiveSuccess(&utils.SpecialJSON{Data: geoResp})
 	if err != nil {
 		return nil, resp, err
 	} else if geoResp.Status != "1" {
@@ -211,7 +221,7 @@ func (s *reGeoService) BatchGet(location []string, param *ReGeoParam) ([]*ReGeoC
 	}
 	reGeoResp := new(ReGeoResp)
 	reGeoResp.ReGeoCode = make([]*ReGeoCode, 0)
-	resp, err := s.sling.New().Get("").QueryStruct(param).ReceiveSuccess(reGeoResp)
+	resp, err := s.sling.New().Get("").QueryStruct(param).ReceiveSuccess(&utils.SpecialJSON{Data: reGeoResp})
 	if err != nil {
 		return nil, resp, err
 	} else if reGeoResp.Status != "1" {
